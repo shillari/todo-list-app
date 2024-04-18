@@ -1,3 +1,5 @@
+let errormessage = "You must write something!";
+
 function newItem() {
     // Adding a new item to the list of items:
     let inputValue = $('#input').val();
@@ -5,8 +7,10 @@ function newItem() {
     li.append(inputValue);
 
     if (inputValue === '') {
-        alert("You must write something!");
+        //alert("You must write something!");
+        showErrorMessage(errormessage);
     } else {
+        showErrorMessage(null);
         $('#list').append(li);
     }
 
@@ -40,6 +44,18 @@ window.addEventListener('keydown', (e) => {
         e.preventDefault();
         if (input !== '') {
             newItem();
+        } else if ($('#input').is(":focus")) {
+            showErrorMessage(errormessage);
         }
     }
 });
+
+function showErrorMessage(message) {
+    // Remove an existing error
+    $('.error-message').text('');
+
+    // Now add the error, if the message is not empty
+    if (message) {
+        $('.error-message').text(message);
+    }
+}
